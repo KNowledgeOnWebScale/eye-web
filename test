@@ -1,0 +1,6 @@
+#!/bin/bash
+pushd ~/github.com/josd/eyenext
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope socrates.n3 --query socrates-query.n3 > socrates-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3 > gps-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --nope dt-rules1.n3 dt-rules2.n3 dt-facts.n3 --query dt-query.n3 > dt-answer.n3
+popd

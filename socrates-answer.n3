@@ -1,0 +1,12 @@
+#Processed by EYE v22.0203.1955 josd
+#eye --nope socrates.n3 --query socrates-query.n3
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://example.org/socrates#>
+
+:Socrates a :Human.
+:Socrates a :Mortal.
+
+#2022-02-19T19:35:36.576Z in=4 out=2 ent=3 step=6 brake=2 inf=624404 sec=0.000 inf/sec=
+#ENDS
+
