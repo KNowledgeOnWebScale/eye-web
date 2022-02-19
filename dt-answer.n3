@@ -1,10 +1,4 @@
-#Processed by EYE v22.0203.1955 josd
-#eye --nope dt-rules1.n3 dt-rules2.n3 dt-facts.n3 --query dt-query.n3
-
 PREFIX : <http://eulersharp.sourceforge.net/2009/12dtb/test#>
 
 :TestVariable a :A2.
-
-#2022-02-19T19:36:38.234Z in=100004 out=1 ent=299999 step=200002 brake=2 inf=141204089 sec=0.000 inf/sec=
-#ENDS
 
