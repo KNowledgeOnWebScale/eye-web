@@ -5,7 +5,7 @@
 % See http://github.com/josd/eye
 %
 
-version_info('EYE v22.0203.1955 josd').
+version_info('EYE v22.0219.2334 josd').
 
 license_info('MIT License
 
@@ -1272,7 +1272,8 @@ tr_n3p(['\'<http://www.w3.org/2000/10/swap/log#implies>\''(X, Y)|Z], Src, Mode) 
     tr_n3p(Z, Src, Mode).
 tr_n3p([':-'(Y, X)|Z], Src, Mode) :-
     !,
-    write(':-'(Y, X)),
+    tr_tr(Y, U),
+    write(':-'(U, X)),
     writeln('.'),
     tr_n3p(Z, Src, Mode).
 tr_n3p(['\'<http://eulersharp.sourceforge.net/2003/03swap/log-rules#tactic>\''(X, Y)|Z], Src, Mode) :-
@@ -3338,7 +3339,6 @@ wt0(X) :-
             pfx(E, D),
             K is J-1,
             sub_atom(X, _, K, 1, F)
-            %regex('^[A-Z_a-z][-0-9A-Z_a-z]*$', F, _)
         ->  atom_concat(E, F, W),
             assertz(wtcache(X, W))
         ;   (   \+flag(strings),
@@ -4473,6 +4473,7 @@ djiti_assertz(A) :-
             write('}.'),
             nl,
             told,
+            tmp_file(Tmp3),
             !,
             (   current_prolog_flag(windows, true)
             ->  A1 = ['cmd.exe', '/C']
@@ -4483,7 +4484,7 @@ djiti_assertz(A) :-
             ->  append(Argu, ['--'], A2)
             ;   A2 = ['eye']
             ),
-            append([A1, A2, ['--nope', Tmp1, '--query', Tmp2, '>/dev/null']], A4),
+            append([A1, A2, ['--nope', Tmp1, '--query', Tmp2, '>', Tmp3]], A4),
             findall([G, ' '],
                 (   member(G, A4)
                 ),
@@ -4492,10 +4493,17 @@ djiti_assertz(A) :-
             flatten(H, I),
             atomic_list_concat(I, J),
             (   catch(exec(J, _), _, fail)
-            ->  delete_file(Tmp1),
-                delete_file(Tmp2)
+            ->  n3_n3p(Tmp3, semantics),
+                absolute_uri(Tmp3, Tmp),
+                atomic_list_concat(['<', Tmp, '>'], Res),
+                semantics(Res, L),
+                delete_file(Tmp1),
+                delete_file(Tmp2),
+                delete_file(Tmp3),
+                L \= []
             ;   delete_file(Tmp1),
                 delete_file(Tmp2),
+                delete_file(Tmp3),
                 fail
             )
         )
@@ -4554,6 +4562,85 @@ djiti_assertz(A) :-
 
 '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#fail>'(A, B) :-
     \+flag(restricted),
+    nonvar(A),
+    A \= [_,_],
+    !,
+    when(
+        (   nonvar(B)
+        ),
+        (   reset_gensym,
+            tmp_file(Tmp1),
+            open(Tmp1, write, Ws1, [encoding(utf8)]),
+            tell(Ws1),
+            (   flag('no-qnames')
+            ->  true
+            ;   forall(
+                    pfx(C, D),
+                    format('PREFIX ~w ~w~n', [C, D])
+                ),
+                nl
+            ),
+            labelvars(A, 0, _),
+            wt(A),
+            write('.'),
+            nl,
+            told,
+            tmp_file(Tmp2),
+            open(Tmp2, write, Ws2, [encoding(utf8)]),
+            tell(Ws2),
+            (   flag('no-qnames')
+            ->  true
+            ;   forall(
+                    pfx(E, F),
+                    format('PREFIX ~w ~w~n', [E, F])
+                ),
+                nl
+            ),
+            labelvars(B, 0, _),
+            write('{'),
+            wt(B),
+            write('} => {'),
+            wt(B),
+            write('}.'),
+            nl,
+            told,
+            tmp_file(Tmp3),
+            !,
+            (   current_prolog_flag(windows, true)
+            ->  A1 = ['cmd.exe', '/C']
+            ;   A1 = []
+            ),
+            (   current_prolog_flag(argv, Argv),
+                append(Argu, ['--'|_], Argv)
+            ->  append(Argu, ['--'], A2)
+            ;   A2 = ['eye']
+            ),
+            append([A1, A2, ['--nope', Tmp1, '--query', Tmp2, '>', Tmp3]], A4),
+            findall([G, ' '],
+                (   member(G, A4)
+                ),
+                H
+            ),
+            flatten(H, I),
+            atomic_list_concat(I, J),
+            (   catch(exec(J, _), _, fail)
+            ->  n3_n3p(Tmp3, semantics),
+                absolute_uri(Tmp3, Tmp),
+                atomic_list_concat(['<', Tmp, '>'], Res),
+                semantics(Res, L),
+                delete_file(Tmp1),
+                delete_file(Tmp2),
+                delete_file(Tmp3),
+                L = []
+            ;   delete_file(Tmp1),
+                delete_file(Tmp2),
+                delete_file(Tmp3),
+                fail
+            )
+        )
+    ).
+'<http://eulersharp.sourceforge.net/2003/03swap/log-rules#fail>'(A, B) :-
+    \+flag(restricted),
     within_scope(A),
     \+catch(call(B), _, fail).
 
@@ -4576,6 +4663,87 @@ djiti_assertz(A) :-
         istep('<>', C, '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#finalize>'(A, B), D)
     ).
 
+'<http://eulersharp.sourceforge.net/2003/03swap/log-rules#findall>'(A, B) :-
+    \+flag(restricted),
+    nonvar(A),
+    A \= [_,_],
+    !,
+    when(
+        (   nonvar(B)
+        ),
+        (   reset_gensym,
+            tmp_file(Tmp1),
+            open(Tmp1, write, Ws1, [encoding(utf8)]),
+            tell(Ws1),
+            (   flag('no-qnames')
+            ->  true
+            ;   forall(
+                    pfx(C, D),
+                    format('PREFIX ~w ~w~n', [C, D])
+                ),
+                nl
+            ),
+            labelvars(A, 0, _),
+            wt(A),
+            write('.'),
+            nl,
+            told,
+            tmp_file(Tmp2),
+            open(Tmp2, write, Ws2, [encoding(utf8)]),
+            tell(Ws2),
+            (   flag('no-qnames')
+            ->  true
+            ;   forall(
+                    pfx(E, F),
+                    format('PREFIX ~w ~w~n', [E, F])
+                ),
+                nl
+            ),
+            write('{'),
+            wt('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#findall>'(_, B)),
+            write('} => {'),
+            wt('<http://eulersharp.sourceforge.net/2003/03swap/log-rules#findall>'(_, B)),
+            write('}.'),
+            nl,
+            told,
+            tmp_file(Tmp3),
+            !,
+            (   current_prolog_flag(windows, true)
+            ->  A1 = ['cmd.exe', '/C']
+            ;   A1 = []
+            ),
+            (   current_prolog_flag(argv, Argv),
+                append(Argu, ['--'|_], Argv)
+            ->  append(Argu, ['--'], A2)
+            ;   A2 = ['eye']
+            ),
+            append([A1, A2, ['--nope', Tmp1, '--query', Tmp2, '>', Tmp3]], A4),
+            findall([G, ' '],
+                (   member(G, A4)
+                ),
+                H
+            ),
+            flatten(H, I),
+            atomic_list_concat(I, J),
+            (   catch(exec(J, _), _, fail)
+            ->  n3_n3p(Tmp3, semantics),
+                absolute_uri(Tmp3, Tmp),
+                atomic_list_concat(['<', Tmp, '>'], Res),
+                semantics(Res, L),
+                conj_list(K, L),
+                labelvars(K, 0, _),
+                B = [_, _, M],
+                K = '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#findall>'(_, [_, _, M]),
+                delete_file(Tmp1),
+                delete_file(Tmp2),
+                delete_file(Tmp3)
+            ;   delete_file(Tmp1),
+                delete_file(Tmp2),
+                delete_file(Tmp3),
+                fail
+            )
+        )
+    ).
 '<http://eulersharp.sourceforge.net/2003/03swap/log-rules#findall>'(Sc, [A, B, C]) :-
     \+flag(restricted),
     within_scope(Sc),

@@ -1,7 +1,7 @@
 #!/bin/bash
 pushd ~/github.com/josd/eyenext
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope socrates.n3 --query socrates-query.n3 > socrates-answer.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet socrates.n3 --query socrates-query.n3 > socrates-proof.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope gps-plugin.n3 gps-example1.n3 --query gps-query1.n3 > gps-answer.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope dt-rules1.n3 dt-rules2.n3 dt-facts.n3 --query dt-query.n3 > dt-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/socrates.n3 --query etc/socrates-query.n3 > etc/socrates-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet etc/socrates.n3 --query etc/socrates-query.n3 > etc/socrates-proof.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/gps-plugin.n3 etc/gps-example1.n3 --query etc/gps-query1.n3 > etc/gps-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/dt-rules1.n3 etc/dt-rules2.n3 etc/dt-facts.n3 --query etc/dt-query.n3 > etc/dt-answer.n3
 popd
