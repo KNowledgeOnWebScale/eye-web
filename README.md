@@ -1,4 +1,4 @@
-# eyeron
+# Eyenext
 
 A second EYE reasoner on Node.
 
