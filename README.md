@@ -1,4 +1,4 @@
-# Tweye
+# tweye
 
 A second EYE reasoner on Node.
 
