@@ -8,7 +8,7 @@
 :- use_module(library(lists)).
 :- use_module(library(qsave)).
 
-version_info('EYE v22.0219.2334 josd').
+version_info('EYE v22.0220.1400 josd').
 
 license_info('MIT License
 
