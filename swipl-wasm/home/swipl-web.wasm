@@ -1,0 +1,5 @@
+sending incremental file list
+-rwxr-xr-x      1,205,811 2022/02/18 15:37:20 swipl-web.wasm
+
+sent 66 bytes  received 77 bytes  286.00 bytes/sec
+total size is 1,205,811  speedup is 8,432.24
