@@ -1,6 +1,6 @@
 #!/bin/bash
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/socrates.n3 --query etc/socrates-query.n3 > etc/socrates-answer.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet etc/socrates.n3 --query etc/socrates-query.n3 > etc/socrates-proof.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/gps-plugin.n3 etc/gps-example1.n3 --query etc/gps-query1.n3 > etc/gps-answer.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/dt-rules1.n3 etc/dt-rules2.n3 etc/dt-facts.n3 --query etc/dt-query.n3 > etc/dt-answer.n3
-node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope etc/complex.n3 --query etc/complex-query.n3 > etc/complex-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope examples/socrates.n3 --query examples/socrates-query.n3 > examples/socrates-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet examples/socrates.n3 --query examples/socrates-query.n3 > examples/socrates-proof.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope examples/gps-plugin.n3 examples/gps-example1.n3 --query examples/gps-query1.n3 > examples/gps-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope examples/dt-rules1.n3 examples/dt-rules2.n3 examples/dt-facts.n3 --query examples/dt-query.n3 > examples/dt-answer.n3
+node swipl-wasm/home/swipl.js -f eye.pl -g main -- --quiet --nope examples/complex.n3 --query examples/complex-query.n3 > examples/complex-answer.n3
