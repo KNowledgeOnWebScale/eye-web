@@ -28,8 +28,8 @@ directory and browse to <http://localhost:8080/test.html>
                     return './swipl-wasm/home/' + file;
                 }
             }).then(async (module) => {
-                document.write('SWI-Prolog WebAssembly ready');
-                document.write(module.prolog.call_string("writeln('Hello world!)."));
+                document.write('SWI-Prolog WebAssembly ready: ');
+                document.write(module.prolog.call_string('writeln("Hello world!").'));
             });
         </script>
     </body>
