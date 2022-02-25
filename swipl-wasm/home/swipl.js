@@ -976,6 +976,10 @@ function setWasmTableEntry(idx, func) {
     wasmTable.set(idx, func);
     wasmTableMirror[idx] = func
 }
+
+function ___call_sighandler(fp, sig) {
+    getWasmTableEntry(fp)(sig)
+}
 var PATH = {
     splitPath: function(filename) {
         var splitPathRe = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
@@ -5226,6 +5230,7 @@ function intArrayFromString(stringy, dontAddNull, length) {
     return u8array
 }
 var asmLibraryArg = {
+    "__call_sighandler": ___call_sighandler,
     "__syscall_access": ___syscall_access,
     "__syscall_chdir": ___syscall_chdir,
     "__syscall_chmod": ___syscall_chmod,
