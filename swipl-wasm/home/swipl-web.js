@@ -3836,7 +3836,7 @@ var SWIPL = (() => {
                         "end": 2807006
                     }],
                     "remote_package_size": 2807006,
-                    "package_uuid": "85a232f0-7dbf-4359-8113-fbde02a5e4ce"
+                    "package_uuid": "903e584e-3f4e-4d38-b3d5-49d7c6b959d6"
                 })
             })();
             if (Module["ENVIRONMENT_IS_PTHREAD"]) Module["preRun"] = [];
@@ -4877,10 +4877,6 @@ var SWIPL = (() => {
             function setWasmTableEntry(idx, func) {
                 wasmTable.set(idx, func);
                 wasmTableMirror[idx] = func
-            }
-
-            function ___call_sighandler(fp, sig) {
-                getWasmTableEntry(fp)(sig)
             }
             var PATH = {
                 splitPath: function(filename) {
@@ -8634,7 +8630,6 @@ var SWIPL = (() => {
                 }
             }
             var asmLibraryArg = {
-                "__call_sighandler": ___call_sighandler,
                 "__syscall_access": ___syscall_access,
                 "__syscall_chdir": ___syscall_chdir,
                 "__syscall_chmod": ___syscall_chmod,
@@ -8755,8 +8750,8 @@ var SWIPL = (() => {
             var _PL_record_external = Module["_PL_record_external"] = createExportWrapper("PL_record_external");
             var _PL_recorded_external = Module["_PL_recorded_external"] = createExportWrapper("PL_recorded_external");
             var _PL_erase_external = Module["_PL_erase_external"] = createExportWrapper("PL_erase_external");
-            var _PL_sigaction = Module["_PL_sigaction"] = createExportWrapper("PL_sigaction");
             var _PL_get_signum_ex = Module["_PL_get_signum_ex"] = createExportWrapper("PL_get_signum_ex");
+            var _PL_sigaction = Module["_PL_sigaction"] = createExportWrapper("PL_sigaction");
             var _PL_signal = Module["_PL_signal"] = createExportWrapper("PL_signal");
             var _PL_handle_signals = Module["_PL_handle_signals"] = createExportWrapper("PL_handle_signals");
             var _PL_cleanup_fork = Module["_PL_cleanup_fork"] = createExportWrapper("PL_cleanup_fork");
@@ -8830,7 +8825,6 @@ var SWIPL = (() => {
             var _PL_unify_blob = Module["_PL_unify_blob"] = createExportWrapper("PL_unify_blob");
             var _PL_get_blob = Module["_PL_get_blob"] = createExportWrapper("PL_get_blob");
             var _PL_blob_data = Module["_PL_blob_data"] = createExportWrapper("PL_blob_data");
-            var _PL_new_module = Module["_PL_new_module"] = createExportWrapper("PL_new_module");
             var _PL_put_string_chars = Module["_PL_put_string_chars"] = createExportWrapper("PL_put_string_chars");
             var _PL_set_resource_db_mem = Module["_PL_set_resource_db_mem"] = createExportWrapper("PL_set_resource_db_mem");
             var _PL_on_halt = Module["_PL_on_halt"] = createExportWrapper("PL_on_halt");
@@ -8894,6 +8888,7 @@ var SWIPL = (() => {
             var _PL_term_type = Module["_PL_term_type"] = createExportWrapper("PL_term_type");
             var _PL_context = Module["_PL_context"] = createExportWrapper("PL_context");
             var _PL_module_name = Module["_PL_module_name"] = createExportWrapper("PL_module_name");
+            var _PL_new_module = Module["_PL_new_module"] = createExportWrapper("PL_new_module");
             var _PL_predicate_info = Module["_PL_predicate_info"] = createExportWrapper("PL_predicate_info");
             var _PL_call = Module["_PL_call"] = createExportWrapper("PL_call");
             var _PL_foreign_context = Module["_PL_foreign_context"] = createExportWrapper("PL_foreign_context");
